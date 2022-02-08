@@ -2,6 +2,7 @@
 #define MMT_BAROMETER_HPP
 
 #include <BMP280_DEV.h>
+#include <SD.h>
 
 namespace mmt {
 
