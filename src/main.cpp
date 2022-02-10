@@ -4,8 +4,16 @@
 
 constexpr int baud_rate = 9600L;
 
-BMP280_DEV bmp(mmt::sda, mmt::scl);
+mmt::BMP bmp(mmt::sda, mmt::scl);
 
-void setup() { Serial.begin(baud_rate); }
+void setup()
+{
+    Serial.begin(baud_rate);
+    mmt::init(bmp);
+}
 
-void loop() {}
+void loop()
+{
+    const auto bmp_measurements = mmt::measure(bmp);
+    mmt::print(bmp_measurements);
+}

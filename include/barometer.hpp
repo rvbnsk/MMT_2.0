@@ -9,6 +9,18 @@ namespace mmt {
 constexpr uint16_t sda = 21;
 constexpr uint16_t scl = 21;
 
+using BMP = BMP280_DEV;
+
+struct BmpMeasurements {
+    float temperature;
+    float pressure;
+    float altitude;
+};
+
+void init(BMP &bmp);
+BmpMeasurements measure(BMP &bmp);
+void print(const BmpMeasurements &measurements);
+
 }  // namespace mmt
 
 #endif
