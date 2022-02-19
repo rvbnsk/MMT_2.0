@@ -2,7 +2,6 @@
 #define MMT_BAROMETER_HPP
 
 #include <BMP280_DEV.h>
-#include <SD.h>
 
 namespace mmt {
 
@@ -17,9 +16,9 @@ struct BmpMeasurements {
     float altitude;
 };
 
-void init(BMP &bmp);
-BmpMeasurements measure(BMP &bmp);
-void print(const BmpMeasurements &measurements);
+void init(BMP &);
+BmpMeasurements measure(BMP &);
+void print(const BmpMeasurements &);
 
 }  // namespace mmt
 
