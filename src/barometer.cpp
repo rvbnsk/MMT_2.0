@@ -6,9 +6,7 @@ namespace mmt {
 
 void init(BMP &bmp)
 {
-    if (!(bool)bmp.begin()) {
-        // return init error
-    }
+    if (!(bool)bmp.begin()) {}
     bmp.setTimeStandby(TIME_STANDBY_2000MS);
     bmp.startNormalConversion();
 }

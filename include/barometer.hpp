@@ -3,6 +3,8 @@
 
 #include <BMP280_DEV.h>
 
+#include "result.hpp"
+
 namespace mmt {
 
 constexpr uint16_t sda = 21;
