@@ -4,6 +4,7 @@
 #include "barometer.hpp"
 
 constexpr int baud_rate = 9600L;
+constexpr int interval = 2000;
 
 mmt::BMP bmp(mmt::sda, mmt::scl);
 mmt::Accel accel;
