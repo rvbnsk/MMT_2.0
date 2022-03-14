@@ -18,8 +18,8 @@ struct BmpMeasurements {
     float altitude;
 };
 
-void init(BMP &);
-BmpMeasurements measure(BMP &);
+Result<Unit, Error> init(BMP &);
+Result<BmpMeasurements, Error> measure(BMP &);
 void print(const BmpMeasurements &);
 
 }  // namespace mmt

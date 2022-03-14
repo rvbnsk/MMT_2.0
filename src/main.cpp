@@ -19,7 +19,7 @@ void setup()
 void loop()
 {
     const auto bmp_measurements = mmt::measure(bmp);
-    const auto accel_measurements = mmt::measure(accel);
-    mmt::print(bmp_measurements);
-    mmt::print(accel_measurements);
+    // const auto accel_measurements = mmt::measure(accel);
+    mmt::print(bmp_measurements.unwrap());
+    // mmt::print(accel_measurements);
 }

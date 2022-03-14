@@ -3,6 +3,8 @@
 
 #include <Adafruit_MPU6050.h>
 
+#include "result.hpp"
+
 namespace mmt {
 
 constexpr uint8_t mpu_address = 0x68;
@@ -24,9 +26,9 @@ struct AccelMeasurements {
     float accel_z;
 };
 
-void init(Accel &);
-AccelEvent prepare_data(Accel &);
-AccelMeasurements measure(Accel &);
+Result<Unit, Error> init(Accel &);
+Result<AccelEvent, Error> prepare_data(Accel &);
+// AccelMeasurements measure(Accel &);
 void print(const AccelMeasurements &);
 
 }  // namespace mmt

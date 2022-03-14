@@ -22,14 +22,13 @@ struct Singleton {
 
 template <typename T>
 struct Ok : detail::Singleton<T> {
-    // NOLINTNEXTLINE(hicpp-explicit-conversions)
-    Ok(T);
+    // NOLINTNEXTLINE(clang-analyzer-optin.cplusplus.UninitializedObject)
+    explicit Ok(T value_){};
 };
 
 template <typename E>
 struct Err : detail::Singleton<E> {
-    // NOLINTNEXTLINE(hicpp-explicit-conversions)
-    Err(E);
+    explicit Err(E value_){};
 };
 
 template <typename T, typename E>
@@ -43,8 +42,25 @@ class Result {
    public:
     // NOLINTNEXTLINE(hicpp-explicit-conversions)
     Result(Ok<T> &&ok) : ok{std::move(ok)}, is_ok_{true} {}
+
     // NOLINTNEXTLINE(hicpp-explicit-conversions)
     Result(Err<E> &&err) : err{std::move(err)}, is_ok_{false} {}
+
+    Result(const Result &) noexcept = default;
+    Result(Result &&) noexcept = default;
+    Result &operator=(const Result &) noexcept = default;
+    Result &operator=(Result &&) noexcept = default;
+
+    ~Result() = default;
+    T &unwrap() & { return this->ok.value; }
+    T &&unwrap() && { return this->ok.value; }
+    const T &unwrap() const & { return this->ok.value; }
+    const T &&unwrap() const && { return this->ok.value; }
+
+    E &unwrap_err() & { return this->err.value; }
+    E &&unwrap_err() && { return this->err.value; }
+    const E &unwrap_err() const & { return this->err.value; }
+    const E &&unwrap_err() const && { return this->err.value; }
 };  // namespace mmt
 
 }  // namespace mmt

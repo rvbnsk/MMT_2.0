@@ -4,23 +4,27 @@
 
 namespace mmt {
 
-void init(BMP &bmp)
+Result<Unit, Error> init(BMP &bmp)
 {
-    if (!(bool)bmp.begin()) {}
+    if (!(bool)bmp.begin()) { return Err<Error>{Error::Disconnected}; }
     bmp.setTimeStandby(TIME_STANDBY_2000MS);
     bmp.startNormalConversion();
+    return Ok<Unit>{Unit{}};
 }
 
-BmpMeasurements measure(BMP &bmp)
+Result<BmpMeasurements, Error> measure(BMP &bmp)
 {
     BmpMeasurements temp = {0, 0, 0};
     if (!(bool)bmp
              .getMeasurements(temp.temperature, temp.pressure, temp.altitude)) {
-        // return measure error
+        return Err<Error>{Error::Busy};
     }
-    return temp;
+    return Ok<BmpMeasurements>{temp};
 }
 
-void print(const BmpMeasurements &measurements) {}
+void print(const BmpMeasurements &measurements)
+{
+    Serial.println(measurements.altitude);
+}
 
 }  // namespace mmt
